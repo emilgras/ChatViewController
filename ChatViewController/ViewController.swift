@@ -40,6 +40,7 @@ class ViewController: UIViewController {
             messageTextView.frame.origin.y = messageTextViewOriginalYPosition
             messageTextView.frame.size.height = messageTextViewOriginalHeight
             textViewHeightConstraint.constant = textViewHeight
+            sendMessageButton.enabled = false
         }
     }
     
