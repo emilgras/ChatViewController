@@ -83,7 +83,7 @@
                                 <rect key="frame" x="0.0" y="550" width="600" height="50"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="JyZ-Ug-suJ">
-                                        <rect key="frame" x="8" y="8" width="516" height="34"/>
+                                        <rect key="frame" x="8" y="8" width="528" height="34"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -96,7 +96,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D5e-zv-BZ2">
-                                        <rect key="frame" x="544" y="11" width="36" height="30"/>
+                                        <rect key="frame" x="556" y="11" width="36" height="30"/>
                                         <state key="normal" title="Send"/>
                                         <connections>
                                             <action selector="sendMessageButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CFh-2c-LAg"/>
@@ -114,7 +114,7 @@
                                     <constraint firstItem="Cu3-y1-oea" firstAttribute="top" secondItem="0ap-ub-s0f" secondAttribute="top" id="bBy-w0-oMm"/>
                                     <constraint firstItem="D5e-zv-BZ2" firstAttribute="bottom" secondItem="JyZ-Ug-suJ" secondAttribute="bottom" constant="-1" id="cLR-8C-kML"/>
                                     <constraint firstItem="JyZ-Ug-suJ" firstAttribute="leading" secondItem="0ap-ub-s0f" secondAttribute="leading" constant="8" id="kvx-ad-pfO"/>
-                                    <constraint firstAttribute="trailing" secondItem="D5e-zv-BZ2" secondAttribute="trailing" constant="20" id="nGJ-Yk-2Ne"/>
+                                    <constraint firstAttribute="trailing" secondItem="D5e-zv-BZ2" secondAttribute="trailing" constant="8" id="nGJ-Yk-2Ne"/>
                                     <constraint firstAttribute="bottom" secondItem="JyZ-Ug-suJ" secondAttribute="bottom" constant="8" id="pSb-60-igv"/>
                                 </constraints>
                                 <variation key="default">
