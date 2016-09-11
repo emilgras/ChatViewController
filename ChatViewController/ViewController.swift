@@ -14,7 +14,8 @@ class ViewController: UIViewController {
     private var messageTextViewOriginalYPosition: CGFloat!
     private var messageTextViewOriginalHeight: CGFloat!
     private var keyboardHeight: CGFloat?
-    private let textViewHeight:CGFloat = 60
+    private let textViewHeight:CGFloat = 50
+    private var keyboardPresented = false
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageTextView: UITextView!
@@ -92,28 +93,67 @@ class ViewController: UIViewController {
     private func startObservingKeyboardEvents() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.changeInputMode(_:)), name: UITextInputCurrentInputModeDidChangeNotification, object: nil)
     }
     
     private func stopObservingKeyboardEvents() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        //NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextInputCurrentInputModeDidChangeNotification, object: nil)
     }
     
     // MARK: - Keyboard Observer Methods
     @objc private func keyboardWillShow(notification: NSNotification) {
         if let userInfo = notification.userInfo {
             if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size {
-                self.keyboardHeight = keyboardSize.height
-                self.textViewBottomContraint.constant = keyboardSize.height
-                UIView.animateWithDuration(0.5, animations: {
-                    self.view.layoutIfNeeded()
-                    self.tableView.contentOffset = CGPointMake(0, self.tableView.contentOffset.y + keyboardSize.height)
-                })
+                
+                let keyboardModeDiff = keyboardSize.height - 216
+                
+                if !keyboardPresented {
+                    
+                    // First time
+                    
+                    self.keyboardHeight = keyboardSize.height
+                    self.textViewBottomContraint.constant = keyboardSize.height
+                    UIView.animateWithDuration(0.5, animations: {
+                        self.view.layoutIfNeeded()
+                        self.tableView.contentOffset = CGPointMake(0, self.tableView.contentOffset.y + keyboardSize.height)
+                    })
+                    keyboardPresented = true
+                    return
+                }
+                
+                
+                if keyboardSize.height == 216 {
+
+                    // Normal Keyboard
+                    
+                    self.keyboardHeight = keyboardSize.height
+                    self.textViewBottomContraint.constant = keyboardSize.height
+                    UIView.animateWithDuration(0.5, animations: {
+                        self.view.layoutIfNeeded()
+                        self.tableView.contentOffset = CGPointMake(0, self.tableView.contentOffset.y - keyboardModeDiff)
+                    })
+                        
+                } else {
+                    
+                    // Emoji Keyboard
+                    
+                    self.keyboardHeight = keyboardSize.height
+                    self.textViewBottomContraint.constant += keyboardModeDiff
+                    UIView.animateWithDuration(0.5, animations: {
+                        self.view.layoutIfNeeded()
+                        self.tableView.contentOffset = CGPointMake(0, self.tableView.contentOffset.y + keyboardModeDiff)
+                    })
+                }
+                
+                
             }
         }
     }
     
     @objc private func keyboardWillHide(notification: NSNotification) {
+        keyboardPresented = false
         if let userInfo = notification.userInfo {
             if let _: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size {
                 self.textViewBottomContraint.constant = 0
@@ -122,6 +162,12 @@ class ViewController: UIViewController {
                 })
             }
         }
+    }
+    
+    @objc private func changeInputMode(notification : NSNotification)
+    {
+        let inputMethod = UITextInputMode.activeInputModes()
+        print("inputMethod: \(inputMethod)")
     }
 
 }
