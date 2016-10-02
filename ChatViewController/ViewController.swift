@@ -88,6 +88,8 @@ class ViewController: UIViewController {
         messageTextViewOriginalYPosition = messageTextView.frame.origin.y
         messageTextViewOriginalHeight = messageTextView.frame.height
         
+        messageTextView.textContainerInset.left = 6
+        
         // Load all the messages from firebase and reload tableview
         messages = Message.getDummyMessages()
         tableView.reloadData()
@@ -106,6 +108,8 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        
         
         // Scroll to the bottom :)
         let indexPath = NSIndexPath(forRow: messages.count-1, inSection: 0)
