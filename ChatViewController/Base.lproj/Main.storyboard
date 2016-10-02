@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CLr-aP-wxu">
-                                <rect key="frame" x="0.0" y="20" width="600" height="530"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CLr-aP-wxu">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatCell" rowHeight="60" id="tas-jM-uHt" customClass="ChatCell" customModule="ChatViewController" customModuleProvider="target">
@@ -84,7 +84,12 @@
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="JyZ-Ug-suJ">
                                         <rect key="frame" x="8" y="8" width="528" height="34"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.7345181381" green="0.68653024900000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" red="0.13772087696335078" green="0.13772087696335078" blue="0.13772087696335078" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="TOI-tz-ie5"/>
+                                        </constraints>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -96,7 +101,8 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D5e-zv-BZ2">
-                                        <rect key="frame" x="556" y="11" width="36" height="30"/>
+                                        <rect key="frame" x="550" y="11" width="36" height="30"/>
+                                        <color key="tintColor" red="0.7345181381" green="0.68653024900000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Send"/>
                                         <connections>
                                             <action selector="sendMessageButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CFh-2c-LAg"/>
@@ -108,17 +114,18 @@
                                     <constraint firstItem="JyZ-Ug-suJ" firstAttribute="top" secondItem="0ap-ub-s0f" secondAttribute="top" constant="8" id="2GB-9F-os6"/>
                                     <constraint firstItem="D5e-zv-BZ2" firstAttribute="centerY" secondItem="0ap-ub-s0f" secondAttribute="centerY" id="4Yy-ym-KSy"/>
                                     <constraint firstAttribute="trailing" secondItem="Cu3-y1-oea" secondAttribute="trailing" id="Ds8-XS-eSQ"/>
-                                    <constraint firstItem="D5e-zv-BZ2" firstAttribute="leading" secondItem="JyZ-Ug-suJ" secondAttribute="trailing" constant="20" id="Ucw-IL-1QX"/>
+                                    <constraint firstItem="D5e-zv-BZ2" firstAttribute="leading" secondItem="JyZ-Ug-suJ" secondAttribute="trailing" constant="14" id="Ucw-IL-1QX"/>
                                     <constraint firstItem="Cu3-y1-oea" firstAttribute="leading" secondItem="0ap-ub-s0f" secondAttribute="leading" id="UvI-HT-f5x"/>
                                     <constraint firstAttribute="height" constant="50" id="Y4w-Mb-arI"/>
                                     <constraint firstItem="Cu3-y1-oea" firstAttribute="top" secondItem="0ap-ub-s0f" secondAttribute="top" id="bBy-w0-oMm"/>
                                     <constraint firstItem="D5e-zv-BZ2" firstAttribute="bottom" secondItem="JyZ-Ug-suJ" secondAttribute="bottom" constant="-1" id="cLR-8C-kML"/>
                                     <constraint firstItem="JyZ-Ug-suJ" firstAttribute="leading" secondItem="0ap-ub-s0f" secondAttribute="leading" constant="8" id="kvx-ad-pfO"/>
-                                    <constraint firstAttribute="trailing" secondItem="D5e-zv-BZ2" secondAttribute="trailing" constant="8" id="nGJ-Yk-2Ne"/>
+                                    <constraint firstAttribute="trailing" secondItem="D5e-zv-BZ2" secondAttribute="trailing" constant="14" id="nGJ-Yk-2Ne"/>
                                     <constraint firstAttribute="bottom" secondItem="JyZ-Ug-suJ" secondAttribute="bottom" constant="8" id="pSb-60-igv"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="Y4w-Mb-arI"/>
                                         <exclude reference="4Yy-ym-KSy"/>
                                     </mask>
                                 </variation>
@@ -130,13 +137,21 @@
                             <constraint firstItem="CLr-aP-wxu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="LeI-VJ-1BM"/>
                             <constraint firstAttribute="trailing" secondItem="CLr-aP-wxu" secondAttribute="trailing" id="McI-dB-nS8"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="0ap-ub-s0f" secondAttribute="bottom" id="ee0-1d-Rfi"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="CLr-aP-wxu" secondAttribute="bottom" id="iL5-yj-D6A"/>
                             <constraint firstItem="0ap-ub-s0f" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="iNu-Q9-Mjy"/>
                             <constraint firstItem="CLr-aP-wxu" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="mKM-Ef-gEj"/>
                             <constraint firstItem="0ap-ub-s0f" firstAttribute="top" secondItem="CLr-aP-wxu" secondAttribute="bottom" id="pOx-1s-HZb"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="pOx-1s-HZb"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
+                        <outlet property="messageContainerView" destination="0ap-ub-s0f" id="zbe-d0-sUH"/>
                         <outlet property="messageTextView" destination="JyZ-Ug-suJ" id="5da-m6-L4d"/>
+                        <outlet property="realTextViewHeightConstraint" destination="TOI-tz-ie5" id="6Co-PL-xqn"/>
                         <outlet property="sendMessageButton" destination="D5e-zv-BZ2" id="ksH-3h-TXg"/>
                         <outlet property="tableView" destination="CLr-aP-wxu" id="eu2-eN-AeE"/>
                         <outlet property="textViewBottomContraint" destination="ee0-1d-Rfi" id="BuE-rg-EY6"/>
