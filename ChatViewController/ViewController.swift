@@ -10,12 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    private var messages: [Message]!
-    private var messageTextViewOriginalYPosition: CGFloat!
-    private var messageTextViewOriginalHeight: CGFloat!
-    private var keyboardHeight: CGFloat?
-    private let textViewHeight:CGFloat = 50
-    private var messageContainerViewOriginalHeight: CGFloat!
+    fileprivate var messages: [Message]!
+    fileprivate var messageTextViewOriginalYPosition: CGFloat!
+    fileprivate var messageTextViewOriginalHeight: CGFloat!
+    fileprivate var keyboardHeight: CGFloat?
+    fileprivate let textViewHeight:CGFloat = 50
+    fileprivate var messageContainerViewOriginalHeight: CGFloat!
 
     @IBOutlet weak var messageContainerView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -26,17 +26,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var textViewHeightConstraint: NSLayoutConstraint!
 
     @IBOutlet weak var realTextViewHeightConstraint: NSLayoutConstraint!
-    @IBAction func sendMessageButtonTapped(sender: AnyObject) {
+    @IBAction func sendMessageButtonTapped(_ sender: AnyObject) {
         if !messageTextView.text.isEmpty {
             
             // This is the place to uplad the message to firebase
-            let spacing = NSCharacterSet.whitespaceAndNewlineCharacterSet()
-            let message = messageTextView.text.stringByTrimmingCharactersInSet(spacing)
+            let spacing = CharacterSet.whitespacesAndNewlines
+            let message = messageTextView.text.trimmingCharacters(in: spacing)
             
             messages.append(Message(author: "Anonoumous", message: message))
             //tableView.reloadData()
-            let indexPath = NSIndexPath(forRow: messages.count-1, inSection: 0)
-            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
+            let indexPath = IndexPath(row: messages.count-1, section: 0)
+            self.tableView.insertRows(at: [indexPath], with: UITableViewRowAnimation.bottom)
             
             
             
@@ -53,13 +53,13 @@ class ViewController: UIViewController {
             // ------------------ TODO: move to method ------------------
             
             
-            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Middle, animated: true)
+            tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.middle, animated: true)
             
             //messageTextView.frame.origin.y = messageTextViewOriginalYPosition
             //messageTextView.frame.size.height = messageTextViewOriginalHeight
             //textViewHeightConstraint.constant = textViewHeight
 
-            sendMessageButton.enabled = false
+            sendMessageButton.isEnabled = false
         }
     }
     
@@ -73,7 +73,7 @@ class ViewController: UIViewController {
         
         // initial setup
         messageContainerViewOriginalHeight = messageContainerView.frame.height
-        sendMessageButton.enabled = false
+        sendMessageButton.isEnabled = false
         messageTextView.layer.cornerRadius = 16
         
         // ------------------ TODO: move to method ------------------
@@ -96,24 +96,24 @@ class ViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         startObservingKeyboardEvents()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         stopObservingKeyboardEvents()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         
         
         // Scroll to the bottom :)
-        let indexPath = NSIndexPath(forRow: messages.count-1, inSection: 0)
-        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Middle, animated: true)
+        let indexPath = IndexPath(row: messages.count-1, section: 0)
+        tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.middle, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -121,24 +121,24 @@ class ViewController: UIViewController {
     }
     
     // MARK: - Setup Keyboard Observers
-    private func startObservingKeyboardEvents() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    fileprivate func startObservingKeyboardEvents() {
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    private func stopObservingKeyboardEvents() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    fileprivate func stopObservingKeyboardEvents() {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     // MARK: - Keyboard Observer Methods
-    @objc private func keyboardWillShow(notification: NSNotification) {
+    @objc fileprivate func keyboardWillShow(_ notification: Notification) {
         if let userInfo = notification.userInfo {
-            if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size {
+            if let keyboardSize: CGSize = (userInfo[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue.size {
 
                 self.keyboardHeight = keyboardSize.height
 
-                UIView.animateWithDuration(0.4, animations: {
+                UIView.animate(withDuration: 0.4, animations: {
                     self.tableView.contentInset.bottom = keyboardSize.height + self.messageContainerView.frame.height
                     self.tableView.scrollIndicatorInsets.bottom = keyboardSize.height + self.messageContainerView.frame.height
                 })
@@ -148,17 +148,17 @@ class ViewController: UIViewController {
                 self.view.layoutIfNeeded()
                 
                 // scroll to bottom
-                let indexPath = NSIndexPath(forRow: messages.count-1, inSection: 0)
-                tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Middle, animated: true)
+                let indexPath = IndexPath(row: messages.count-1, section: 0)
+                tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.middle, animated: true)
                 
                 
             }
         }
     }
     
-    @objc private func keyboardWillHide(notification: NSNotification) {
+    @objc fileprivate func keyboardWillHide(_ notification: Notification) {
         if let userInfo = notification.userInfo {
-            if let _: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size {
+            if let _: CGSize = (userInfo[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue.size {
                 
                 tableView.contentInset.bottom = messageContainerViewOriginalHeight
                 tableView.scrollIndicatorInsets.bottom = messageContainerViewOriginalHeight
@@ -175,16 +175,16 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDataSource {
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ChatCell", forIndexPath: indexPath) as! ChatCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! ChatCell
         cell.message = messages[indexPath.row]
         return cell
     }
@@ -193,8 +193,8 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
@@ -202,19 +202,19 @@ extension ViewController: UITableViewDelegate {
 
 extension ViewController: UITextViewDelegate {
     
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         
-        let spacing = NSCharacterSet.whitespaceAndNewlineCharacterSet()
-        if !messageTextView.text.stringByTrimmingCharactersInSet(spacing).isEmpty {
-            sendMessageButton.enabled = true
+        let spacing = CharacterSet.whitespacesAndNewlines
+        if !messageTextView.text.trimmingCharacters(in: spacing).isEmpty {
+            sendMessageButton.isEnabled = true
         } else {
-            sendMessageButton.enabled = false
+            sendMessageButton.isEnabled = false
         }
         
         
         // TODO: - set max height
         
-        let newSize = textView.sizeThatFits(CGSizeMake(textView.frame.width, CGFloat.max))
+        let newSize = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude))
         realTextViewHeightConstraint.constant = newSize.height
         
         
@@ -223,8 +223,8 @@ extension ViewController: UITextViewDelegate {
         tableView.scrollIndicatorInsets.bottom += difference
 
         // This should not always be called.
-        let indexPath = NSIndexPath(forRow: messages.count-1, inSection: 0)
-        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Middle, animated: true)
+        let indexPath = IndexPath(row: messages.count-1, section: 0)
+        tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.middle, animated: true)
         
     }
     

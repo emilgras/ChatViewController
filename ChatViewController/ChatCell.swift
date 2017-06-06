@@ -27,7 +27,7 @@ class ChatCell: UITableViewCell {
         profileImageView.layer.masksToBounds = true
     }
     
-    private func updateUI() {
+    fileprivate func updateUI() {
         if let message = message {
             self.nameLabel.text = message.author
             self.messageLabel.text = message.message
